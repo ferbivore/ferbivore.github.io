@@ -13,10 +13,7 @@
 </div>
 <div id=c></div>
 <script>
-var w=[],ldfls=true;
-</script>
-<script>
-var d=document, b=d.body, ls=localStorage;
+var d=document, b=d.body, ls=localStorage, w=[];
 function q(x){return d.querySelector(x)}
 function c(x){return d.createElement(x)}
 function r(i){
@@ -33,7 +30,7 @@ function r(i){
 }
 function lw(){
 	cl();
-	if(ldfls && ls.getItem("w")) w=JSON.parse(ls.getItem("w"));
+	if(ls.getItem("w")) w=JSON.parse(ls.getItem("w"));
 	else return cls();
 	for(i=0;i<w.length;i++) r(i);
 }
