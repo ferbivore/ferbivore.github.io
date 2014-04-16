@@ -1,0 +1,70 @@
+<html><style>
+	body{font-family:sans-serif;}
+	a{text-decoration:none;margin-right:.5em;color:lightgray}
+	a#eb{font-size:.8em;margin-left:.5em}
+	div#c>div{border-top:1px solid lightgray;margin-top:6px}
+	div#c>div>p{color:gray;margin: 6px 0 6px 0}
+	div#c>div>pre{margin-top:0;margin-bottom:0.4em}
+	div#c>div>div>a{font-size:0.6em}
+</style>
+<div id=h>
+	<a href="javascript:ne()">new</a>
+	<a href="javascript:if(confirm('Are you sure? This will erase the notepad.')) cls()">clear localstorage</a>
+</div>
+<div id=c></div>
+<script>
+var w=[],ldfls=true;
+</script>
+<script>
+var d=document, b=d.body, ls=localStorage;
+function q(x){return d.querySelector(x)}
+function c(x){return d.createElement(x)}
+function r(i){
+	e=c("div"), s=c("p"), x=c("pre"), a=c("div");
+	e.id="e"+i;
+	s.textContent=w[i][0]; s.contentEditable=true;
+	x.innerHTML=w[i][1]; x.contentEditable=true;
+	s.onblur=function(){se(i)}; x.onblur=s.onblur;
+	a.class="ab"; ad=c("a");
+	ad.href="javascript:de("+i+");lw()"; ad.innerHTML="delete";
+	a.appendChild(ad);
+	q("#c").appendChild(e);
+	e.appendChild(s); e.appendChild(x); e.appendChild(a);
+}
+function lw(){
+	cl();
+	if(ldfls && ls.getItem("w")) w=JSON.parse(ls.getItem("w"));
+	else return cls();
+	for(i=0;i<w.length;i++) r(i);
+}
+function ne(){
+	i=w.push(["Untitled","Click to edit."]) - 1;
+	r(i);se(i);
+}
+function stl(){
+	ls.setItem("w",JSON.stringify(w));
+}
+function se(i){
+	s="#e"+i+">";
+	w[i][0]=q(s+"p").textContent;
+	w[i][1]=q(s+"pre").innerHTML;
+	stl();
+}
+Array.prototype.rm=function(f,t){
+	var r = this.slice((t||f)+1||this.length);
+	this.length = f<0?this.length+f:f;
+	return this.push.apply(this,r);
+};
+function de(i){
+	w.rm(i);stl();
+}
+function cl(){
+	q("#c").innerHTML="";
+}
+function cls(){
+	w=[["Hello!", "Welcome to notepad2k, a multi-page notepad in less than 2048 bytes of JavaScript!<br>Just click to edit - it's autosaved."]];
+	ls.setItem("w",JSON.stringify(w));
+	cl();lw();
+}
+b.onload=lw();
+</script>
